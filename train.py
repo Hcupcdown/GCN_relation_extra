@@ -3,7 +3,7 @@ import numpy as np
 import random
 import torch
 import test
-
+import time
 from model.trainer import GCNTrainer
 from model.loader import DataLoader
 from model.vocab import Vocab
@@ -14,7 +14,7 @@ parameter={
     'ner_dim':30,
     'pos_dim':30,
     'num_class':19,          #标签个数
-    'hidden_dim':360,        #隐藏层参数个数
+    'hidden_dim':720,        #隐藏层参数个数
     'num_layers':1,          #全连接网络层数
     'input_dropout':0.5,     #输入数据dropout率
     'gcn_dropout':0.5,       #GCN网络dropout率
@@ -45,13 +45,16 @@ current_lr = parameter['lr']
 
 #开始训练
 for epoch in range(1, parameter['num_epoch']+1):
+    start_time=time.time()
     train_loss = 0
     for i, batch in enumerate(train_batch):
         loss = trainer.update(batch)
         train_loss += loss
     #计算平均损失函数
+    end_time=time.time()
     train_loss = train_loss / train_batch.num_examples * parameter['batch_size'] 
     print("第"+str(epoch)+"趟")
+    print("耗时:"+str(start_time-end_time))
     print("train_loss:"+str(train_loss))
     #保存模型
     model_file = './save_model/checkpoint_epoch_{}.pt'.format(epoch)

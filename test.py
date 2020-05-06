@@ -13,7 +13,7 @@ def test_score(epoch):
     'ner_dim':30,
     'pos_dim':30,
     'num_class':19,          #标签个数
-    'hidden_dim':360,        #隐藏层参数个数
+    'hidden_dim':720,        #隐藏层参数个数
     'num_layers':1,          #全连接网络层数
     'mlp_layers':2,          #多分类层数
     'batch_size':50          #批处理个数
